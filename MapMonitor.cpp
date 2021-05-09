@@ -6,10 +6,10 @@ bool MapMonitor:: contains(string key) {
     return this->internal.find(key) != this->internal.end();
 }
 
-void MapMonitor:: putIfAbsent(string key, int value1,int value2) {
+void MapMonitor:: putIfAbsent(string key, int offset,int length) {
     if (!contains(key)) {
-        this->internal[key].first = value1;
-        this->internal[key].second = value2;
+        this->internal[key].first = offset;
+        this->internal[key].second = length;
     }
 }
 

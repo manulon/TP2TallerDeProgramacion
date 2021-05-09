@@ -2,8 +2,8 @@
 
 ProtectedMap:: ProtectedMap() {}
 
-void ProtectedMap:: put(string key, int value1, int value2) {
-    this->internal.emplace(key, make_pair(value1,value2));
+void ProtectedMap:: put(string key, int offset, int length) {
+    this->internal.emplace(key, make_pair(offset,length));
 }
 
 int ProtectedMap:: get_offset(string key) {
