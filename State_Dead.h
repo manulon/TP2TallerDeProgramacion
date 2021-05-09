@@ -8,7 +8,7 @@ using namespace std;
 class State_Dead: public State {
 
 public:
-    State_Dead():State(){};
+    State_Dead();
     ~State_Dead();
 };
 

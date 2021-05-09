@@ -8,7 +8,7 @@ using namespace std;
 class State_Explored: public State {
 
 public:
-    State_Explored():State(){};
+    State_Explored();
     ~State_Explored();
 };
 

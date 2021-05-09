@@ -1,6 +1,6 @@
 #include "State_Ready.h"
 
-State_Ready:: State_Ready(): State() {
+State_Ready:: State_Ready() {
     this->status = "ready";
 }
 

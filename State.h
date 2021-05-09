@@ -7,9 +7,10 @@ using namespace std;
 class State {
 protected:
     const char* status;
-
+    
 public:
     State();
+    const char* get_status();
     ~State();
 };
 

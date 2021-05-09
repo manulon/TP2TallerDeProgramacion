@@ -6,6 +6,7 @@
 #include <string>
 #include "ProtectedMap.h"
 #include "MapMonitor.h"
+#include "Url.h"
 
 using namespace std;
 
@@ -26,6 +27,10 @@ void usingTheGoodMonitor(char const* argv) {
         map.printIfPresent(url);   
         myfile >> url >> hex >> a >> hex >> b;     
     }
+
+    Url laurl;
+    cout << " STATUS ES " << laurl.get_status() << " | " << endl    ;
+
 
     myfile.close();
 }

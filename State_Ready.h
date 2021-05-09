@@ -8,7 +8,7 @@ using namespace std;
 class State_Ready: public State {
 
 public:
-    State_Ready():State(){};
+    State_Ready();
     ~State_Ready();
 };
 
