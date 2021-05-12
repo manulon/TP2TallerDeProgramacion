@@ -2,17 +2,18 @@
 #define URL_H
 
 #include <string>
-#include "State.h"
 
 using namespace std;
 
 class Url {
-   
-    State actual_state;
+    string url;
+    string actual_state;
 
 public:
-    Url();
-    const char* get_status();
+    Url(string url);
+    string get_status();
+    string get_url();
+    void set_state(const string& new_state);
     ~Url();
 };
 
