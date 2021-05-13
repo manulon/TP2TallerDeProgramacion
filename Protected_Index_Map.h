@@ -1,13 +1,12 @@
-#ifndef PROTECTED_MAP_H
-#define PROTECTED_MAP_H
+#ifndef PROTECTED_INDEX_MAP_H
+#define PROTECTED_INDEX_MAP_H
 
 #include <string>
 #include <map>
 
 using namespace std;
 
-class ProtectedMap {
-private:
+class Protected_Index_Map {
     map<string, pair<int,int>> internal;
     
 public:
@@ -18,8 +17,8 @@ public:
     int get_size(string key);
     bool contains(string key);
     void remove(string key);
-    ProtectedMap();
-    ~ProtectedMap();
+    Protected_Index_Map();
+    ~Protected_Index_Map();
 };
 
 #endif

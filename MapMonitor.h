@@ -4,14 +4,13 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include "ProtectedMap.h"
+#include "Protected_Index_Map.h"
 
 using namespace std;
 
 class MapMonitor {
 private:
-    //map<string, pair<int,int>> internal;
-    ProtectedMap map;
+    Protected_Index_Map map;
 
     bool contains(string key);
 

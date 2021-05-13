@@ -50,6 +50,7 @@
         "stdexcept": "c",
         "streambuf": "c",
         "thread": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "list": "cpp"
     }
 }
