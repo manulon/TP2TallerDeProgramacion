@@ -9,16 +9,15 @@
 
 class File_Reader {
 private:
-    std::string filename_index;
-    std::string filename_target;
     std::ifstream myfile_index;
     std::ifstream myfile_target;
 
 public:
     File_Reader();
-    File_Reader(const std::string& index, const std::string& target);
-    void read_file_and_build_map(MapMonitor* map);
-    void read_file_and_build_list(List_Monitor* list);
+    void read_file_and_build_map
+        (const std::string& filename, MapMonitor& map);
+    void read_file_and_build_list
+        (const std::string& filename, List_Monitor& list);
     ~File_Reader();
 };
 

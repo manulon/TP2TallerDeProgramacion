@@ -7,10 +7,11 @@
 #include <list>
 #include <map>
 #include "Blocking_Queue.h"
-#include "List_Monitor.h"
 #include "MapMonitor.h"
+#include "List_Monitor.h"
 
 class Web_Crawler {
+private:
     Blocking_Queue queue;
     std::ifstream myfilepages;
     std::string allowed;
@@ -19,13 +20,15 @@ class Web_Crawler {
     MapMonitor  index_map;
     std::map< std::string, std::string > final_map;
 
+    void search_new_urls(int offset, int size);
+    void put_initial_values_in_queue();
+    void print();
+    
 public:
     Web_Crawler
     (const std::string& filename, const std::string& allowed,
-        List_Monitor* list, MapMonitor* map);
-    void put_initial_values_in_queue();
+        const List_Monitor& list,const MapMonitor& map);
     void start();
-    
     ~Web_Crawler();
 };
 
