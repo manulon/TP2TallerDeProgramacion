@@ -16,4 +16,12 @@ bool List_Monitor:: contains(std::string new_element){
             != this->list.end();
 }
 
+std::list<std::string>::iterator List_Monitor:: begin(){
+    return this->list.begin();
+}
+
+std::list<std::string>::iterator List_Monitor:: end(){
+    return this->list.end();
+}
+
 List_Monitor::~List_Monitor(){}

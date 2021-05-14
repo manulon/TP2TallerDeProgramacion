@@ -14,6 +14,8 @@ public:
     List_Monitor();
     void addIfAbsent(std::string new_element);
     bool contains(std::string new_element);
+    std::list<std::string>::iterator begin();
+    std::list<std::string>::iterator end();
     ~List_Monitor();
 };
 

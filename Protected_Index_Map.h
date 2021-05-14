@@ -3,20 +3,17 @@
 
 #include <string>
 #include <map>
-
-using namespace std;
+#include <utility>
 
 class Protected_Index_Map {
-    map<string, pair<int,int>> internal;
+    std::map<std::string, std::pair<int,int>> internal;
     
 public:
-    void put(string key, int value1, int value2);
-    void set_offset(string key, int offset);
-    int get_offset(string key);
-    void set_size(string key, int size);
-    int get_size(string key);
-    bool contains(string key);
-    void remove(string key);
+    void set_offset(std::string key, int offset);
+    int get_offset(std::string key);
+    void set_size(std::string key, int size);
+    int get_size(std::string key);
+    bool contains(std::string key);
     Protected_Index_Map();
     ~Protected_Index_Map();
 };

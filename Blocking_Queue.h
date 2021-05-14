@@ -2,18 +2,18 @@
 #define BLOCKING_QUEUE_H
 
 #include <queue>
-#include "Url.h"
+#include <string>
+#include <utility>
 
-using namespace std;
 
 class Blocking_Queue {
-    queue<Url> my_queue;
+    std::queue<std::pair<std::string,std::string>> my_queue;
     
 public:
     Blocking_Queue();
-    void push(Url url);
+    void push(std::string url);
     void pop();
-    Url get_next_url();
+    std::string get_next_url();
     bool is_empty();
     ~Blocking_Queue();
 };

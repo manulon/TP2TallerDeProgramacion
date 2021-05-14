@@ -6,21 +6,17 @@
 #include <map>
 #include "Protected_Index_Map.h"
 
-using namespace std;
-
 class MapMonitor {
 private:
     Protected_Index_Map map;
 
-    bool contains(string key);
+    bool contains(std::string key);
 
 public:
-    void putIfAbsent(string key, int value1, int value2);
-    void printIfPresent(string key);
-    bool contains_key(string key);
-    void removeIfPresent(string key);
-    int getOffsetIfPresent(string key);
-    int getSizeIfPresent(string key);
+    void putIfAbsent(std::string key, int value1, int value2);
+    bool contains_key(std::string key);
+    int getOffsetIfPresent(std::string key);
+    int getSizeIfPresent(std::string key);
     MapMonitor();
     ~MapMonitor();
 };
