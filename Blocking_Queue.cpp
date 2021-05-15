@@ -1,5 +1,6 @@
 #include "Blocking_Queue.h"
 #include "ClosedQueueExcepcion.h"
+#include <iostream>
 
 Blocking_Queue:: Blocking_Queue() {
     this->isClosed = false;
@@ -22,12 +23,6 @@ std::string Blocking_Queue::pop(){
     std::string first_element = this->my_queue.front().first;
     this->my_queue.pop();
     return first_element;
-}
-
-std::string Blocking_Queue::get_next_url(){
-    std::unique_lock<std::mutex> lk(this->m);
-    std::string result = this->my_queue.front().first;
-    return result;
 }
 
 void Blocking_Queue:: close(){

@@ -9,7 +9,7 @@ Web_Crawler:: Web_Crawler(const char* argv[]){
     this->number_of_threads = std::atoi(argv[3]);
     this->index = argv[4];
     this->pages = argv[5];
-    this->seconds_to_sleep = std::atoi(argv[6]);  
+    this->seconds_to_sleep = std::atoi(argv[6]);
 }
 
 void Web_Crawler:: build_map_and_list(){
@@ -55,7 +55,7 @@ void Web_Crawler:: search_new_urls(int offset, int size){
     std::string str(buffer);
            
     std::istringstream iss(str);
-    std::string word;
+    std::string word = "";
     while (iss >> word) {
         if ( (word.find(this->allowed) != std::string::npos) &
             (word.find("http://") != std::string::npos) ){
@@ -81,14 +81,14 @@ void Web_Crawler:: print(){
     }
 }
 
-void Web_Crawler:: url_was_processed(){
+void Web_Crawler:: url_was_processed(std::string url){
     std::unique_lock<std::mutex> lk(this->m);
-    this->final_map[this->queue.pop()] = "explored";
+    this->final_map[url] = "explored";
 }
 
-void Web_Crawler:: url_was_not_processed(){
+void Web_Crawler:: url_was_not_processed(std::string url){
     std::unique_lock<std::mutex> lk(this->m);
-    this->final_map[this->queue.pop()] = "dead";
+    this->final_map[url] = "dead";
 }
 
 void Web_Crawler:: start(){
@@ -98,19 +98,19 @@ void Web_Crawler:: start(){
 
     while (keep_working) {
         try{
-            if ( this->index_map.contains_key(this->queue.get_next_url()) ) {
+            std::string next_url = "";
+            next_url = this->queue.pop();
+            if ( this->index_map.contains_key(next_url) ) {
                 int offset = 
-                    this->index_map.getOffsetIfPresent
-                        (this->queue.get_next_url());
+                    this->index_map.getOffsetIfPresent(next_url);
                 int size   = 
-                    this->index_map.getSizeIfPresent
-                        (this->queue.get_next_url());
+                    this->index_map.getSizeIfPresent(next_url);
 
                 search_new_urls(offset,size);
                 
-                url_was_processed();
+                url_was_processed(next_url);
             }else{
-                url_was_not_processed();
+                url_was_not_processed(next_url);
             }
         } catch (ClosedQueueException &error){
             keep_working = false;

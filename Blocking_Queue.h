@@ -17,7 +17,6 @@ public:
     Blocking_Queue();
     void push(std::string url);
     std::string pop();
-    std::string get_next_url();
     void close();
     ~Blocking_Queue();
 };
