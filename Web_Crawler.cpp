@@ -1,6 +1,7 @@
 #include "Web_Crawler.h"
 #include "ClosedQueueExcepcion.h"
 #include <unistd.h>
+#include <utility>
 
 Web_Crawler:: Web_Crawler(const char* argv[]){
     this->target = argv[1];
@@ -99,9 +100,11 @@ void Web_Crawler:: start(){
         try{
             if ( this->index_map.contains_key(this->queue.get_next_url()) ) {
                 int offset = 
-                    this->index_map.getOffsetIfPresent(this->queue.get_next_url());
+                    this->index_map.getOffsetIfPresent
+                        (this->queue.get_next_url());
                 int size   = 
-                    this->index_map.getSizeIfPresent(this->queue.get_next_url());
+                    this->index_map.getSizeIfPresent
+                        (this->queue.get_next_url());
 
                 search_new_urls(offset,size);
                 

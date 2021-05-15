@@ -3,11 +3,6 @@
 
 #include <exception>
 
-class ClosedQueueException : public std::exception {
-    public:
-        const char*what() {
-            return "Queue is closed";
-        }
-};
+class ClosedQueueException : public std::exception {};
 
 #endif

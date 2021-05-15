@@ -30,11 +30,6 @@ std::string Blocking_Queue::get_next_url(){
     return result;
 }
 
-bool Blocking_Queue:: is_open(){
-    std::unique_lock<std::mutex> lk(this->m);
-    return this->isClosed;
-}
-
 void Blocking_Queue:: close(){
     std::unique_lock<std::mutex> lk(this->m);
     this->isClosed = true;

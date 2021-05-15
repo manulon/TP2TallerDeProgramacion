@@ -18,7 +18,6 @@ public:
     void push(std::string url);
     std::string pop();
     std::string get_next_url();
-    bool is_open();
     void close();
     ~Blocking_Queue();
 };
