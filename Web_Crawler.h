@@ -25,6 +25,7 @@ private:
     void print();
     
 public:
+    Web_Crawler();
     Web_Crawler
     (const std::string& filename, const std::string& allowed,
         const List_Monitor& list,const MapMonitor& map);
