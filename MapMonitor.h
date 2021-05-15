@@ -4,12 +4,13 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <mutex>
 #include "Protected_Index_Map.h"
 
 class MapMonitor {
 private:
     Protected_Index_Map map;
-
+    std::mutex m;
     bool contains(std::string key);
 
 public:

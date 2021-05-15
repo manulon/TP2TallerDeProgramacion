@@ -1,4 +1,5 @@
 #include "Web_Crawler.h"
+#include "ClosedQueueExcepcion.h"
 
 Web_Crawler:: Web_Crawler(){}
 
@@ -7,7 +8,7 @@ Web_Crawler:: Web_Crawler
 const List_Monitor& list,const MapMonitor& map){
     this->filename_pages = filename;
     this->allowed = allowed;
-    this->index_map = map;
+    //this->index_map = map;
     this->target_list = list;
     myfilepages.open(filename);
 }
@@ -17,31 +18,38 @@ void Web_Crawler:: put_initial_values_in_queue(){
              it != this->target_list.end(); ++it){
         this->queue.push(*it);
     }
+    this->target_list.clear();
 }
 
 void Web_Crawler:: start(){
     put_initial_values_in_queue();
-    
-    while ( !(this->queue.is_empty()) ){
-        if ( this->index_map.contains_key(this->queue.get_next_url()) ) {
-            int offset = 
-                this->index_map.getOffsetIfPresent(this->queue.get_next_url());
-            int size   = 
-                this->index_map.getSizeIfPresent(this->queue.get_next_url());
 
-            search_new_urls(offset,size);
+    bool keep_working = true;
 
-            this->final_map[this->queue.get_next_url()] = "explored";
-            this->queue.pop();
-        }else{
-            this->final_map[this->queue.get_next_url()] = "dead";
-            this->queue.pop();
+    while (keep_working) {
+        try{
+            if ( this->index_map.contains_key(this->queue.get_next_url()) ) {
+                int offset = 
+                    this->index_map.getOffsetIfPresent(this->queue.get_next_url());
+                int size   = 
+                    this->index_map.getSizeIfPresent(this->queue.get_next_url());
+
+                search_new_urls(offset,size);
+                
+                url_was_processed();
+            }else{
+                url_was_not_processed();
+            }
+        } catch (ClosedQueueException &error){
+            keep_working = false;
         }
     }
+
     print();
 }
 
 void Web_Crawler:: search_new_urls(int offset, int size){
+    std::unique_lock<std::mutex> lk(this->m);
     char* buffer = NULL;
     buffer = (char *)calloc(size+1,sizeof(char));
             
@@ -62,9 +70,24 @@ void Web_Crawler:: search_new_urls(int offset, int size){
 }
 
 void Web_Crawler:: print(){
+    std::unique_lock<std::mutex> lk(this->m);
     for (auto const &pair: this->final_map) {
         std::cout << pair.first << " -> " << pair.second << "\n";
     }
+}
+
+void Web_Crawler:: url_was_processed(){
+    std::unique_lock<std::mutex> lk(this->m);
+    this->final_map[this->queue.pop()] = "explored";
+}
+
+void Web_Crawler:: url_was_not_processed(){
+    std::unique_lock<std::mutex> lk(this->m);
+    this->final_map[this->queue.pop()] = "dead";
+}
+
+void Web_Crawler:: close_queue(){
+    this->queue.close();
 }
 
 Web_Crawler:: ~Web_Crawler(){

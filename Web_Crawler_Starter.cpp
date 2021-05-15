@@ -1,5 +1,8 @@
 #include "Web_Crawler_Starter.h"
 #include "Web_Crawler.h"
+#include <stdio.h>
+#include <unistd.h>
+#include <thread>
 #include <utility>
 
 Web_Crawler_Starter:: Web_Crawler_Starter(const char* argv[]){
@@ -36,12 +39,15 @@ void Web_Crawler_Starter:: initialize_threads(){
 
 void Web_Crawler_Starter:: spawn_threads(){
     Web_Crawler wc(this->pages,this->allowed,
-        this->target_list,this->index_map);
+        this->target_list,std::move(this->index_map));
 
     for (std::list<std::thread>::iterator it = this->threads.begin();
              it != this->threads.end(); ++it) {
         (*it) = std::thread([&]{ wc.start(); });
     }
+
+    sleep(this->seconds_to_sleep);
+    wc.close_queue();
 
     for ( auto& th: threads ){
         th.join();
