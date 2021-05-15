@@ -31,22 +31,22 @@ class Web_Crawler {
 
 
     private:
-        /**/void build_map_and_list();
-        /**/void initialize_threads();
-        /**/void spawn_threads();
-        /**/void search_new_urls(int offset, int size);
-        /**/void put_initial_values_in_queue();
-        /**/void print();
-        /**/void url_was_processed();
-        /**/void url_was_not_processed();
+        void build_map_and_list();
+        void initialize_threads();
+        void spawn_threads();
+        void search_new_urls(int offset, int size);
+        void put_initial_values_in_queue();
+        void print();
+        void url_was_processed();
+        void url_was_not_processed();
 
     public:
-        /**/Web_Crawler();
-        /**/explicit Web_Crawler(const char* argv[]);
-        /**/void start();
-        /**/void run();
-        /**/void close_queue();
-        /**/~Web_Crawler();
+        Web_Crawler();
+        explicit Web_Crawler(const char* argv[]);
+        void start();
+        void run();
+        void close_queue();
+        ~Web_Crawler();
 };
 
 #endif

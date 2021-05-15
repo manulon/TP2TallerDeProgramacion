@@ -4,12 +4,13 @@
 #include <iostream>
 #include <string>
 #include <list>
-
+#include <mutex>
 
 class List_Monitor {
 private:
-    //Protected_Index_Map map;
     std::list<std::string> list;
+    std::mutex m;
+
 public:
     List_Monitor();
     void addIfAbsent(std::string new_element);

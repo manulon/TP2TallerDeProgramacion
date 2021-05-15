@@ -113,8 +113,6 @@ void Web_Crawler:: start(){
             keep_working = false;
         }
     }
-
-    print();
 }
 
 void Web_Crawler:: close_queue(){
@@ -125,6 +123,7 @@ void Web_Crawler:: run(){
     build_map_and_list();
     initialize_threads();
     spawn_threads();
+    print();
 }
 
 Web_Crawler:: ~Web_Crawler(){}
