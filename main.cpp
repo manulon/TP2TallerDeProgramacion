@@ -1,12 +1,10 @@
-#include "Web_Crawler_Starter.h"
+#include "Web_Crawler.h"
    
 int main(int argc, char const *argv[]) {
     if (argc != 7){ return -1; }
 
-    Web_Crawler_Starter wc_starter(argv);
-    wc_starter.start();
-
-
+    Web_Crawler wc(argv);
+    wc.run();
 
     return 0;
 }
