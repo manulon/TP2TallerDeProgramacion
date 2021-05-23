@@ -2,14 +2,23 @@
 #include "ClosedQueueExcepcion.h"
 #include <unistd.h>
 #include <utility>
+#include <cstddef>
+#include <new>
+#include <vector>
+#include <iostream>
 
-Web_Crawler:: Web_Crawler(const char* argv[]){
+Web_Crawler:: Web_Crawler(const char* argv[]): target(),allowed(),
+                                               number_of_threads(),
+                                               index(), pages(),
+                                               seconds_to_sleep(){
     this->target = argv[1];
     this->allowed = argv[2];
-    this->number_of_threads = std::atoi(argv[3]);
+    this->number_of_threads = std::stoi(argv[3]);
     this->index = argv[4];
     this->pages = argv[5];
-    this->seconds_to_sleep = std::atoi(argv[6]);
+    this->seconds_to_sleep = std::stoi(argv[6]);
+    build_map_and_list();
+    this->threads.reserve(this->number_of_threads);
 }
 
 void Web_Crawler:: build_map_and_list(){
@@ -20,17 +29,9 @@ void Web_Crawler:: build_map_and_list(){
         (this->target,this->target_list);
 }
 
-void Web_Crawler:: initialize_threads(){
-    for (int i = 0; i < this->number_of_threads; i++) {
-        std::thread new_thread;
-        this->threads.insert(this->threads.end(),std::move(new_thread));
-    }
-}
-
 void Web_Crawler:: spawn_threads(){
-    for (std::list<std::thread>::iterator it = this->threads.begin();
-             it != this->threads.end(); ++it) {
-        (*it) = std::thread([&]{ start(); });
+    for ( int i = 0; i < this->number_of_threads; i++ ) {
+        this->threads.push_back(std::thread([&]{ run(); }));
     }
 
     sleep(this->seconds_to_sleep);
@@ -81,17 +82,17 @@ void Web_Crawler:: print(){
     }
 }
 
-void Web_Crawler:: url_was_processed(std::string url){
+void Web_Crawler:: url_was_processed(std::string& url){
     std::unique_lock<std::mutex> lk(this->m);
     this->final_map[url] = "explored";
 }
 
-void Web_Crawler:: url_was_not_processed(std::string url){
+void Web_Crawler:: url_was_not_processed(std::string& url){
     std::unique_lock<std::mutex> lk(this->m);
     this->final_map[url] = "dead";
 }
 
-void Web_Crawler:: start(){
+void Web_Crawler:: run(){
     put_initial_values_in_queue();
 
     bool keep_working = true;
@@ -122,9 +123,7 @@ void Web_Crawler:: close_queue(){
     this->queue.close();
 }
 
-void Web_Crawler:: run(){
-    build_map_and_list();
-    initialize_threads();
+void Web_Crawler:: start(){
     spawn_threads();
     print();
 }

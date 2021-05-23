@@ -9,6 +9,7 @@
 #include <list>
 #include <map>
 #include <mutex>
+#include <vector>
 #include "Map_Monitor.h"
 #include "File_Reader.h"
 #include "List_Monitor.h"
@@ -21,7 +22,7 @@ class Web_Crawler {
     std::string index;
     std::string pages;
     int seconds_to_sleep;
-    std::list<std::thread> threads;
+    std::vector<std::thread> threads;
     MapMonitor index_map;
     File_Reader fr;
     List_Monitor target_list;
@@ -32,13 +33,12 @@ class Web_Crawler {
 
     private:
         void build_map_and_list();
-        void initialize_threads();
         void spawn_threads();
         void search_new_urls(int offset, int size);
         void put_initial_values_in_queue();
         void print();
-        void url_was_processed(std::string url);
-        void url_was_not_processed(std::string url);
+        void url_was_processed(std::string& url);
+        void url_was_not_processed(std::string& url);
 
     public:
         Web_Crawler();

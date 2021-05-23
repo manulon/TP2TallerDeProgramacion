@@ -3,7 +3,7 @@
 int main(int argc, char const *argv[]) {
     if (argc != 7){ return -1; }
     Web_Crawler wc(argv);
-    wc.run();
+    wc.start();
 
     return 0;
 }
