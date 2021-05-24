@@ -12,7 +12,7 @@ private:
     
 public:
     Page();
-    Page(const std::string& url,const std::string& state);
+    Page(const std::string& url,std::string state);
     std::string get_url();
     void set_state(const std::string& state);
     std::string get_state();

@@ -3,7 +3,7 @@
 Page:: Page():
 url(),state(),offset(),size(){}
 
-Page:: Page(const std::string& url , const std::string& state): 
+Page:: Page(const std::string& url ,std::string state): 
 url(url),state(state),offset(),size(){}
 
 std::string Page::get_url(){
