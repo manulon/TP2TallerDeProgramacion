@@ -6,7 +6,7 @@ Blocking_Queue:: Blocking_Queue() {
     this->isClosed = false;
 }
 
-void Blocking_Queue:: push(std::string url){
+void Blocking_Queue:: push(const std::string& url){
     std::unique_lock<std::mutex> lk(this->m);
     this->my_queue.push(url);
     this->cv.notify_all();

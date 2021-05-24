@@ -15,7 +15,7 @@ class Blocking_Queue {
     bool isClosed;
 public:
     Blocking_Queue();
-    void push(std::string url);
+    void push(const std::string& url);
     std::string pop();
     void close();
     ~Blocking_Queue();

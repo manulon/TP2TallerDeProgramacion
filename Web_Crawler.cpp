@@ -42,7 +42,7 @@ void Web_Crawler:: spawn_threads(){
     }
 }
 
-void Web_Crawler:: search_new_urls(int offset, int size){
+void Web_Crawler:: search_new_urls(const int& offset,const int& size){
     std::vector<char> buffer(size+1);
     
     std::ifstream myfilepages;

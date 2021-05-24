@@ -9,11 +9,11 @@ class Protected_Index_Map {
     std::map<std::string, std::pair<int,int>> internal;
     
 public:
-    void set_offset(std::string key, int offset);
-    int get_offset(std::string key);
-    void set_size(std::string key, int size);
-    int get_size(std::string key);
-    bool contains(std::string key);
+    void set_offset(const std::string& key, const int& offset);
+    int get_offset(const std::string& key);
+    void set_size(const std::string& key, const int& size);
+    int get_size(const std::string& key);
+    bool contains(const std::string& key);
     Protected_Index_Map();
     ~Protected_Index_Map();
 };

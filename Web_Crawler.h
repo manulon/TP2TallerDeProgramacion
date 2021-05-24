@@ -31,7 +31,7 @@ class Web_Crawler {
     private:
         void build_map_and_list();
         void spawn_threads();
-        void search_new_urls(int offset, int size);
+        void search_new_urls(const int& offset,const int& size);
         void put_initial_values_in_queue();
         void print();
         void url_was_processed(std::string& url);
