@@ -8,8 +8,8 @@
 #include <iostream>
 
 Web_Crawler:: Web_Crawler(const char* argv[]):
-allowed(argv[2]),number_of_threads(std::stoi(argv[3])),pages(argv[5]),
-seconds_to_sleep(std::stoi(argv[6])),fr(argv[4],argv[1]),target_list(){
+number_of_threads(std::stoi(argv[3])),seconds_to_sleep(std::stoi(argv[6])),
+fr(argv[4],argv[1]),target_list(),fetcher(argv[5],argv[2]){
     build_map_and_list();
     this->threads.reserve(this->number_of_threads);
 }
@@ -36,31 +36,14 @@ void Web_Crawler:: spawn_threads(){
 }
 
 void Web_Crawler:: search_new_urls(const int& offset,const int& size){
-    std::vector<char> buffer(size+1);
-    
-    std::ifstream myfilepages;
-    myfilepages.open(this->pages);
-
-    myfilepages.seekg(offset);
-    myfilepages.read(buffer.data(),size);
-
-    std::string str(buffer.data());
-           
-    std::istringstream iss(str);
-    std::string word = "";
-    while (iss >> word) {
-        if ( (word.find(this->allowed) != std::string::npos) &
-            (word.find("http://") != std::string::npos) ){
-                this->queue.push(word);
-            }
-    }
-    myfilepages.close();
+    this->fetcher.search_new_urls(offset,size,this->queue);
 }
 
 void Web_Crawler:: put_initial_values_in_queue(){
     for (std::list<std::string>::iterator it = this->target_list.begin();
              it != this->target_list.end(); ++it){
-        this->queue.push(*it);
+        Page element((*it),"ready");
+        this->queue.push(element);
     }
     this->target_list.clear();
 }
@@ -69,14 +52,16 @@ void Web_Crawler:: print(){
     this->final_map.print_all_values();
 }
 
-void Web_Crawler:: url_was_processed(const std::string& url){
-    this->final_map.putIfAbsent(url,0,0);
-    this->final_map.setStateIfPresent(url,"explored");
+void Web_Crawler:: page_was_processed(Page page){
+    page.set_state("explored");
+    this->final_map.putIfAbsent(page.get_url(),0,0);
+    this->final_map.setStateIfPresent(page.get_url(),page.get_state());
 }
 
-void Web_Crawler:: url_was_not_processed(const std::string& url){
-    this->final_map.putIfAbsent(url,0,0);
-    this->final_map.setStateIfPresent(url,"dead");
+void Web_Crawler:: page_was_not_processed(Page page){
+    page.set_state("dead");
+    this->final_map.putIfAbsent(page.get_url(),0,0);
+    this->final_map.setStateIfPresent(page.get_url(),page.get_state());
 }
 
 void Web_Crawler:: run(){
@@ -84,19 +69,19 @@ void Web_Crawler:: run(){
 
     while (keep_working) {
         try{
-            std::string next_url = "";
+            Page next_url;
             next_url = this->queue.pop();
-            if ( this->index_map.contains_key(next_url) ) {
+            if ( this->index_map.contains_key(next_url.get_url()) ) {
                 int offset = 
-                    this->index_map.getOffsetIfPresent(next_url);
+                    this->index_map.getOffsetIfPresent(next_url.get_url());
                 int size   = 
-                    this->index_map.getSizeIfPresent(next_url);
+                    this->index_map.getSizeIfPresent(next_url.get_url());
 
                 search_new_urls(offset,size);
-                
-                url_was_processed(next_url);
+
+                page_was_processed(std::move(next_url));
             }else{
-                url_was_not_processed(next_url);
+                page_was_not_processed(std::move(next_url));
             }
         } catch (ClosedQueueException &error){
             keep_working = false;

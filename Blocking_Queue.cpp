@@ -5,13 +5,13 @@
 Blocking_Queue:: Blocking_Queue():
 isClosed(false){}
 
-void Blocking_Queue:: push(const std::string& url){
+void Blocking_Queue:: push(Page new_page){
     std::unique_lock<std::mutex> lk(this->m);
-    this->my_queue.push(url);
+    this->my_queue.push(new_page);
     this->cv.notify_all();
 }
 
-std::string Blocking_Queue::pop(){
+Page Blocking_Queue::pop(){
     std::unique_lock<std::mutex> lk(this->m);
     while ( this->my_queue.empty() ){
         if ( this->isClosed ){
@@ -19,7 +19,7 @@ std::string Blocking_Queue::pop(){
         }
         this->cv.wait(lk);
     }
-    std::string first_element = this->my_queue.front();
+    Page first_element = this->my_queue.front();
     this->my_queue.pop();
     return first_element;
 }

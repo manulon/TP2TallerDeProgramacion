@@ -1,6 +1,7 @@
 #ifndef BLOCKING_QUEUE_H
 #define BLOCKING_QUEUE_H
 
+#include "Page.h"
 #include <queue>
 #include <string>
 #include <utility>
@@ -9,14 +10,14 @@
 
 
 class Blocking_Queue {
-    std::queue<std::string> my_queue;
+    std::queue<Page> my_queue;
     std::mutex m;
     std::condition_variable cv;
     bool isClosed;
 public:
     Blocking_Queue();
-    void push(const std::string& url);
-    std::string pop();
+    void push(Page new_page);
+    Page pop();
     void close();
     ~Blocking_Queue();
 };

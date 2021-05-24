@@ -1,6 +1,14 @@
 #include "Page.h"
 
-Page:: Page(): state(),offset(),size(){}
+Page:: Page():
+url(),state(),offset(),size(){}
+
+Page:: Page(const std::string& url , const std::string& state): 
+url(url),state(state),offset(),size(){}
+
+std::string Page::get_url(){
+    return this->url;
+}
 
 void Page:: set_state(const std::string& state){
     this->state = state;

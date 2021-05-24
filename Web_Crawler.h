@@ -13,9 +13,10 @@
 #include "Map_Monitor.h"
 #include "File_Reader.h"
 #include "Blocking_Queue.h"
+#include "Page.h"
+#include "Page_Fetcher.h"
 
 class Web_Crawler {
-    std::string allowed;
     int number_of_threads;
     std::string pages;
     int seconds_to_sleep;
@@ -25,6 +26,7 @@ class Web_Crawler {
     std::list<std::string> target_list;
     Blocking_Queue queue;
     Map_Monitor final_map;
+    Page_Fetcher fetcher;
 
 
     private:
@@ -33,8 +35,8 @@ class Web_Crawler {
         void search_new_urls(const int& offset,const int& size);
         void put_initial_values_in_queue();
         void print();
-        void url_was_processed(const std::string& url);
-        void url_was_not_processed(const std::string& url);
+        void page_was_processed(Page page);
+        void page_was_not_processed(Page page);
 
     public:
         Web_Crawler();

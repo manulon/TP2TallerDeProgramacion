@@ -5,12 +5,15 @@
 
 class Page{
 private:
+    std::string url;
     std::string state;
     int offset;
     int size;
     
 public:
     Page();
+    Page(const std::string& url,const std::string& state);
+    std::string get_url();
     void set_state(const std::string& state);
     std::string get_state();
     void set_offset(const int& offset);
