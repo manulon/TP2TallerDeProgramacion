@@ -43,16 +43,15 @@ void Web_Crawler:: spawn_threads(){
 }
 
 void Web_Crawler:: search_new_urls(int offset, int size){
-    char* buffer = NULL;
-    buffer = (char *)calloc(size+1,sizeof(char));
-
+    std::vector<char> buffer(size+1);
+    
     std::ifstream myfilepages;
     myfilepages.open(this->pages);
 
     myfilepages.seekg(offset);
-    myfilepages.read(buffer,size);
+    myfilepages.read(buffer.data(),size);
 
-    std::string str(buffer);
+    std::string str(buffer.data());
            
     std::istringstream iss(str);
     std::string word = "";
@@ -62,7 +61,6 @@ void Web_Crawler:: search_new_urls(int offset, int size){
                 this->queue.push(word);
             }
     }
-    free(buffer);
     myfilepages.close();
 }
 
