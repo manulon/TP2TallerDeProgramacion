@@ -1,5 +1,5 @@
 #include "Blocking_Queue.h"
-#include "ClosedQueueExcepcion.h"
+#include "ClosedQueueException.h"
 #include <iostream>
 
 Blocking_Queue:: Blocking_Queue() {

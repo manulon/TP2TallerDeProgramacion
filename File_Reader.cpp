@@ -1,11 +1,18 @@
 #include "File_Reader.h"
+#include "IndexIsNotOpenException.h"
+#include "TargetIsNotOpenException.h"
 
-File_Reader:: File_Reader(){}
+File_Reader:: File_Reader
+(const std::string& index, const std::string& target):
+                        myfile_index(index),
+                        myfile_target(target){
+    if (!(this->myfile_index.is_open()))
+        throw IndexIsNotOpenException();    
+    if (!(this->myfile_target.is_open()))
+        throw TargetIsNotOpenException();
+}
 
-void File_Reader:: read_file_and_build_map
-(const std::string& filename, Index_Map_Monitor& map){
-    this->myfile_index.open(filename);
-
+void File_Reader:: read_file_and_build_map(Index_Map_Monitor& map){
     std::string url, line;
     int a, b;
 
@@ -16,10 +23,7 @@ void File_Reader:: read_file_and_build_map
     }
 }
 
-void File_Reader:: read_file_and_build_list
-(const std::string& filename, List_Monitor& list){
-    this->myfile_target.open(filename);
-
+void File_Reader:: read_file_and_build_list(List_Monitor& list){
     std::string url;
 
     while ( getline(this->myfile_target,url) ){

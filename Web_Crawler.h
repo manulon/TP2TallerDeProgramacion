@@ -17,10 +17,8 @@
 #include "Blocking_Queue.h"
 
 class Web_Crawler {
-    std::string target;
     std::string allowed;
     int number_of_threads;
-    std::string index;
     std::string pages;
     int seconds_to_sleep;
     std::vector<std::thread> threads;

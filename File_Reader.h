@@ -13,11 +13,10 @@ private:
     std::ifstream myfile_target;
 
 public:
-    File_Reader();
-    void read_file_and_build_map
-        (const std::string& filename, Index_Map_Monitor& map);
-    void read_file_and_build_list
-        (const std::string& filename, List_Monitor& list);
+    File_Reader
+    (const std::string& index, const std::string& target);
+    void read_file_and_build_map(Index_Map_Monitor& map);
+    void read_file_and_build_list(List_Monitor& list);
     ~File_Reader();
 };
 

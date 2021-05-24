@@ -1,5 +1,5 @@
 #include "Web_Crawler.h"
-#include "ClosedQueueExcepcion.h"
+#include "ClosedQueueException.h"
 #include <unistd.h>
 #include <utility>
 #include <cstddef>
@@ -7,14 +7,13 @@
 #include <vector>
 #include <iostream>
 
-Web_Crawler:: Web_Crawler(const char* argv[]): target(),allowed(),
+Web_Crawler:: Web_Crawler(const char* argv[]): allowed(),
                                                number_of_threads(),
-                                               index(), pages(),
-                                               seconds_to_sleep(){
-    this->target = argv[1];
+                                               pages(),
+                                               seconds_to_sleep(),
+                                               fr(argv[4],argv[1]){
     this->allowed = argv[2];
     this->number_of_threads = std::stoi(argv[3]);
-    this->index = argv[4];
     this->pages = argv[5];
     this->seconds_to_sleep = std::stoi(argv[6]);
     build_map_and_list();
@@ -23,10 +22,10 @@ Web_Crawler:: Web_Crawler(const char* argv[]): target(),allowed(),
 
 void Web_Crawler:: build_map_and_list(){
     this->fr.read_file_and_build_map
-        (this->index,this->index_map);
+        (this->index_map);
 
     this->fr.read_file_and_build_list
-        (this->target,this->target_list);
+        (this->target_list);
 }
 
 void Web_Crawler:: spawn_threads(){
