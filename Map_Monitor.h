@@ -14,7 +14,8 @@ private:
     bool contains(const std::string& key);
 
 public:
-    void putIfAbsent(const std::string& key, const int& value1,const int& value2);
+    void putIfAbsent
+    (const std::string& key, const int& value1,const int& value2);
     bool contains_key(const std::string& key);
     int getOffsetIfPresent(const std::string& key);
     int getSizeIfPresent(const std::string& key);

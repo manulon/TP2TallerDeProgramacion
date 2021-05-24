@@ -10,7 +10,7 @@ int main(int argc, char const *argv[]) {
     }catch (FileIsNotOpenException& error){
         std::cout<<error.what()<<std::endl;
         return 1;
-    };
+    }
 
     return 0;
 }

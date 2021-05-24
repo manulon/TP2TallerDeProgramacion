@@ -7,6 +7,6 @@ class FileIsNotOpenException : public std::exception {
     public:
         virtual const char* what(){
             return "No se abrio un archivo \n";
-        };
+        }
 };
 #endif

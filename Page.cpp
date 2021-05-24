@@ -6,7 +6,7 @@ void Page:: set_state(const std::string& state){
     this->state = state;
 }
 
-std::string Page:: get_state(){
+std::string Page::get_state(){
     return this->state;
 }
 

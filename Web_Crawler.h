@@ -33,8 +33,8 @@ class Web_Crawler {
         void search_new_urls(const int& offset,const int& size);
         void put_initial_values_in_queue();
         void print();
-        void url_was_processed(std::string& url);
-        void url_was_not_processed(std::string& url);
+        void url_was_processed(const std::string& url);
+        void url_was_not_processed(const std::string& url);
 
     public:
         Web_Crawler();

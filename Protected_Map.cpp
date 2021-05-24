@@ -36,7 +36,8 @@ std::string Protected_Map:: get_state(const std::string& key){
 
 void Protected_Map:: print_all_values(){
     for ( auto& element: internal ){
-        std::cout << element.first << " -> " << element.second.get_state() << std::endl;
+        std::cout << element.first << " -> " <<
+        element.second.get_state() << std::endl;
     }
 }
 

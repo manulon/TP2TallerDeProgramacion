@@ -8,6 +8,7 @@ bool Map_Monitor:: contains(const std::string& key) {
 
 void Map_Monitor:: putIfAbsent
 (const std::string& key,const int& offset,const int& length) {
+    std::unique_lock<std::mutex> lk(this->m);
     if (!contains(key)) {
         this->map.set_offset(key,offset);
         this->map.set_size(key,length);
@@ -28,6 +29,7 @@ int Map_Monitor:: getOffsetIfPresent(const std::string& key){
 }
 
 void Map_Monitor:: setStateIfPresent(const std::string& url,std::string state){
+    std::unique_lock<std::mutex> lk(this->m);
     if (contains(url)) 
         this->map.set_state(url,state);
 }
