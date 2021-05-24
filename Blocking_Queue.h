@@ -9,7 +9,7 @@
 
 
 class Blocking_Queue {
-    std::queue<std::pair<std::string,std::string>> my_queue;
+    std::queue<std::string> my_queue;
     std::mutex m;
     std::condition_variable cv;
     bool isClosed;

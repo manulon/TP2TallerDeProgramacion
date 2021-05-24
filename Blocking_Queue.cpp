@@ -8,7 +8,7 @@ Blocking_Queue:: Blocking_Queue() {
 
 void Blocking_Queue:: push(std::string url){
     std::unique_lock<std::mutex> lk(this->m);
-    this->my_queue.push(std::make_pair(url,"ready"));
+    this->my_queue.push(url);
     this->cv.notify_all();
 }
 
@@ -20,7 +20,7 @@ std::string Blocking_Queue::pop(){
         }
         this->cv.wait(lk);
     }
-    std::string first_element = this->my_queue.front().first;
+    std::string first_element = this->my_queue.front();
     this->my_queue.pop();
     return first_element;
 }
