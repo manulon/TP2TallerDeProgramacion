@@ -2,9 +2,8 @@
 #include "ClosedQueueException.h"
 #include <iostream>
 
-Blocking_Queue:: Blocking_Queue() {
-    this->isClosed = false;
-}
+Blocking_Queue:: Blocking_Queue():
+isClosed(false){}
 
 void Blocking_Queue:: push(const std::string& url){
     std::unique_lock<std::mutex> lk(this->m);

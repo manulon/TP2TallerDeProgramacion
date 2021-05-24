@@ -7,16 +7,9 @@
 #include <vector>
 #include <iostream>
 
-Web_Crawler:: Web_Crawler(const char* argv[]): allowed(),
-                                               number_of_threads(),
-                                               pages(),
-                                               seconds_to_sleep(),
-                                               fr(argv[4],argv[1]),
-                                               target_list(){
-    this->allowed = argv[2];
-    this->number_of_threads = std::stoi(argv[3]);
-    this->pages = argv[5];
-    this->seconds_to_sleep = std::stoi(argv[6]);
+Web_Crawler:: Web_Crawler(const char* argv[]):
+allowed(argv[2]),number_of_threads(std::stoi(argv[3])),pages(argv[5]),
+seconds_to_sleep(std::stoi(argv[6])),fr(argv[4],argv[1]),target_list(){
     build_map_and_list();
     this->threads.reserve(this->number_of_threads);
 }

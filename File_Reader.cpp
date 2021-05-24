@@ -4,8 +4,7 @@
 
 File_Reader:: File_Reader
 (const std::string& index, const std::string& target):
-                        myfile_index(index),
-                        myfile_target(target){
+myfile_index(index),myfile_target(target){
     if (!(this->myfile_index.is_open()))
         throw IndexIsNotOpenException();    
     if (!(this->myfile_target.is_open()))
