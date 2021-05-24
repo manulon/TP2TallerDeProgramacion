@@ -1,24 +1,24 @@
-#include "Map_Monitor.h"
+#include "Index_Map_Monitor.h"
 
-MapMonitor:: MapMonitor() {}
+Index_Map_Monitor:: Index_Map_Monitor() {}
 
-bool MapMonitor:: contains(std::string key) {
+bool Index_Map_Monitor:: contains(std::string key) {
     return this->map.contains(key);
 }
 
-void MapMonitor:: putIfAbsent(std::string key, int offset,int length) {
+void Index_Map_Monitor:: putIfAbsent(std::string key, int offset,int length) {
     if (!contains(key)) {
         this->map.set_offset(key,offset);
         this->map.set_size(key,length);
    }
 }
 
-bool MapMonitor:: contains_key(std::string key){
+bool Index_Map_Monitor:: contains_key(std::string key){
     std::unique_lock<std::mutex> lk(this->m);
     return this->map.contains(key);
 }
 
-int MapMonitor:: getOffsetIfPresent(std::string key){
+int Index_Map_Monitor:: getOffsetIfPresent(std::string key){
     std::unique_lock<std::mutex> lk(this->m);
     if (contains(key)) {
         return this->map.get_offset(key);
@@ -26,7 +26,7 @@ int MapMonitor:: getOffsetIfPresent(std::string key){
     return 0;
 }
 
-int MapMonitor:: getSizeIfPresent(std::string key){
+int Index_Map_Monitor:: getSizeIfPresent(std::string key){
     std::unique_lock<std::mutex> lk(this->m);
     if (contains(key)) {
         return this->map.get_size(key);
@@ -34,4 +34,4 @@ int MapMonitor:: getSizeIfPresent(std::string key){
     return 0;
 }
 
-MapMonitor:: ~MapMonitor() {}
+Index_Map_Monitor:: ~Index_Map_Monitor() {}

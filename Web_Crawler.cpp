@@ -43,7 +43,6 @@ void Web_Crawler:: spawn_threads(){
 }
 
 void Web_Crawler:: search_new_urls(int offset, int size){
-    std::unique_lock<std::mutex> lk(this->m);
     char* buffer = NULL;
     buffer = (char *)calloc(size+1,sizeof(char));
 
@@ -76,25 +75,18 @@ void Web_Crawler:: put_initial_values_in_queue(){
 }
 
 void Web_Crawler:: print(){
-    std::unique_lock<std::mutex> lk(this->m);
-    for (auto const &pair: this->final_map) {
-        std::cout << pair.first << " -> " << pair.second << "\n";
-    }
+    this->final_map.printAllValues();
 }
 
 void Web_Crawler:: url_was_processed(std::string& url){
-    std::unique_lock<std::mutex> lk(this->m);
-    this->final_map[url] = "explored";
+    this->final_map.insert(url,"explored");
 }
 
 void Web_Crawler:: url_was_not_processed(std::string& url){
-    std::unique_lock<std::mutex> lk(this->m);
-    this->final_map[url] = "dead";
+    this->final_map.insert(url,"dead");
 }
 
 void Web_Crawler:: run(){
-    put_initial_values_in_queue();
-
     bool keep_working = true;
 
     while (keep_working) {
@@ -124,6 +116,7 @@ void Web_Crawler:: close_queue(){
 }
 
 void Web_Crawler:: start(){
+    put_initial_values_in_queue();
     spawn_threads();
     print();
 }

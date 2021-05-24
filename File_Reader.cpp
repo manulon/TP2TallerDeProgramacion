@@ -3,7 +3,7 @@
 File_Reader:: File_Reader(){}
 
 void File_Reader:: read_file_and_build_map
-(const std::string& filename, MapMonitor& map){
+(const std::string& filename, Index_Map_Monitor& map){
     this->myfile_index.open(filename);
 
     std::string url, line;
