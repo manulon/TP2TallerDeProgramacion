@@ -1,12 +1,12 @@
-#include "Index_Map_Monitor.h"
+#include "Map_Monitor.h"
 
-Index_Map_Monitor:: Index_Map_Monitor() {}
+Map_Monitor:: Map_Monitor() {}
 
-bool Index_Map_Monitor:: contains(const std::string& key) {
+bool Map_Monitor:: contains(const std::string& key) {
     return this->map.contains(key);
 }
 
-void Index_Map_Monitor:: putIfAbsent
+void Map_Monitor:: putIfAbsent
 (const std::string& key,const int& offset,const int& length) {
     if (!contains(key)) {
         this->map.set_offset(key,offset);
@@ -14,12 +14,12 @@ void Index_Map_Monitor:: putIfAbsent
    }
 }
 
-bool Index_Map_Monitor:: contains_key(const std::string& key){
+bool Map_Monitor:: contains_key(const std::string& key){
     std::unique_lock<std::mutex> lk(this->m);
     return this->map.contains(key);
 }
 
-int Index_Map_Monitor:: getOffsetIfPresent(const std::string& key){
+int Map_Monitor:: getOffsetIfPresent(const std::string& key){
     std::unique_lock<std::mutex> lk(this->m);
     if (contains(key)) {
         return this->map.get_offset(key);
@@ -27,7 +27,12 @@ int Index_Map_Monitor:: getOffsetIfPresent(const std::string& key){
     return 0;
 }
 
-int Index_Map_Monitor:: getSizeIfPresent(const std::string& key){
+void Map_Monitor:: setStateIfPresent(const std::string& url,std::string state){
+    if (contains(url)) 
+        this->map.set_state(url,state);
+}
+
+int Map_Monitor:: getSizeIfPresent(const std::string& key){
     std::unique_lock<std::mutex> lk(this->m);
     if (contains(key)) {
         return this->map.get_size(key);
@@ -35,4 +40,8 @@ int Index_Map_Monitor:: getSizeIfPresent(const std::string& key){
     return 0;
 }
 
-Index_Map_Monitor:: ~Index_Map_Monitor() {}
+void Map_Monitor:: print_all_values(){
+    this->map.print_all_values();
+}
+
+Map_Monitor:: ~Map_Monitor() {}

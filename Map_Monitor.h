@@ -1,15 +1,15 @@
-#ifndef INDEX_MAP_MONITOR_H
-#define INDEX_MAP_MONITOR_H
+#ifndef MAP_MONITOR_H
+#define MAP_MONITOR_H
 
 #include <iostream>
 #include <string>
 #include <map>
 #include <mutex>
-#include "Protected_Index_Map.h"
+#include "Protected_Map.h"
 
-class Index_Map_Monitor {
+class Map_Monitor {
 private:
-    Protected_Index_Map map;
+    Protected_Map map;
     std::mutex m;
     bool contains(const std::string& key);
 
@@ -18,8 +18,10 @@ public:
     bool contains_key(const std::string& key);
     int getOffsetIfPresent(const std::string& key);
     int getSizeIfPresent(const std::string& key);
-    Index_Map_Monitor();
-    ~Index_Map_Monitor();
+    void setStateIfPresent(const std::string& key,std::string state);
+    void print_all_values();
+    Map_Monitor();
+    ~Map_Monitor();
 };
 
 #endif

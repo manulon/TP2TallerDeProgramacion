@@ -12,7 +12,7 @@ File_Reader:: File_Reader
         throw TargetIsNotOpenException();
 }
 
-void File_Reader:: read_file_and_build_map(Index_Map_Monitor& map){
+void File_Reader:: read_file_and_build_map(Map_Monitor& map){
     std::string url, line;
     int a, b;
 

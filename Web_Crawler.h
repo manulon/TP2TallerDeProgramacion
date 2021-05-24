@@ -10,8 +10,7 @@
 #include <map>
 #include <mutex>
 #include <vector>
-#include "Index_Map_Monitor.h"
-#include "Final_Map_Monitor.h"
+#include "Map_Monitor.h"
 #include "File_Reader.h"
 #include "Blocking_Queue.h"
 
@@ -21,11 +20,11 @@ class Web_Crawler {
     std::string pages;
     int seconds_to_sleep;
     std::vector<std::thread> threads;
-    Index_Map_Monitor index_map;
+    Map_Monitor index_map;
     File_Reader fr;
     std::list<std::string> target_list;
     Blocking_Queue queue;
-    Final_Map_Monitor final_map;
+    Map_Monitor final_map;
 
 
     private:

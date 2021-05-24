@@ -73,15 +73,19 @@ void Web_Crawler:: put_initial_values_in_queue(){
 }
 
 void Web_Crawler:: print(){
-    this->final_map.printAllValues();
+    std::cout<<"LLEGO ACA??"<<std::endl;
+    this->final_map.print_all_values();
 }
 
 void Web_Crawler:: url_was_processed(std::string& url){
-    this->final_map.insert(url,"explored");
+    //this->final_map.insert(url,"explored");
+    this->final_map.putIfAbsent(url,0,0);
+    this->final_map.setStateIfPresent(url,"explored");
 }
 
 void Web_Crawler:: url_was_not_processed(std::string& url){
-    this->final_map.insert(url,"dead");
+    this->final_map.putIfAbsent(url,0,0);
+    this->final_map.setStateIfPresent(url,"dead");
 }
 
 void Web_Crawler:: run(){
