@@ -11,7 +11,8 @@ Web_Crawler:: Web_Crawler(const char* argv[]): allowed(),
                                                number_of_threads(),
                                                pages(),
                                                seconds_to_sleep(),
-                                               fr(argv[4],argv[1]){
+                                               fr(argv[4],argv[1]),
+                                               target_list(){
     this->allowed = argv[2];
     this->number_of_threads = std::stoi(argv[3]);
     this->pages = argv[5];

@@ -13,7 +13,6 @@
 #include "Index_Map_Monitor.h"
 #include "Final_Map_Monitor.h"
 #include "File_Reader.h"
-#include "List_Monitor.h"
 #include "Blocking_Queue.h"
 
 class Web_Crawler {
@@ -24,7 +23,7 @@ class Web_Crawler {
     std::vector<std::thread> threads;
     Index_Map_Monitor index_map;
     File_Reader fr;
-    List_Monitor target_list;
+    std::list<std::string> target_list;
     Blocking_Queue queue;
     Final_Map_Monitor final_map;
 

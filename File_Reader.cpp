@@ -23,12 +23,10 @@ void File_Reader:: read_file_and_build_map(Index_Map_Monitor& map){
     }
 }
 
-void File_Reader:: read_file_and_build_list(List_Monitor& list){
+void File_Reader:: read_file_and_build_list(std::list<std::string>& list){
     std::string url;
-
-    while ( getline(this->myfile_target,url) ){
-        list.addIfAbsent(url);
-    }
+    while ( getline(this->myfile_target,url) )
+        list.insert(list.end(),url);
 }
 
 File_Reader:: ~File_Reader(){
