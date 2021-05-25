@@ -55,4 +55,5 @@ Para esta entrega se han realizado los siguientes cambios:
 
 # Diagrama de clases representativo de la solución final:
 *ACLARACION:* Este diagrama no muestra todas los metodos implementados en la solucion. Solo muestra los mas importantes para que viendo el diagrama se pueda dar un entendimiento del programa. Lo mismo sucede con los constructores y destructores de las clases
-![Captura de pantalla de 2021-05-16 00-38-11](https://user-images.githubusercontent.com/45469722/118384743-0b7ce100-b5df-11eb-8ea2-61a9913cce81.png)
+![DiagramaDeClasesGeneral](https://user-images.githubusercontent.com/45469722/119423632-153ace80-bcda-11eb-98d5-9c2dcf822b00.png)
+
