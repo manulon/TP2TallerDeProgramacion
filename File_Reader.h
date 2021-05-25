@@ -10,7 +10,7 @@
 class File_Reader {
 private:
     std::ifstream myfile_index;
-    std::ifstream myfile_target;
+    std::ifstream myfile_target;    
 
 public:
     File_Reader
